@@ -1,0 +1,29 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# pan_cpp_do
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+exec 1>&2
+
+redo-ifchange pan.p.cpp
+sed -e 's/this;/_this;/g' \
+  -e 's/this *=/_this =/g' \
+  -e 's/this)/_this)/g' \
+  -e 's/o__this/o_this/g' \
+  -e 's/pan\.h/pan.hpp/' \
+  -e 's/pan\.p/pan.p.cpp/' \
+  -e 's/max(/MAX(/g' < pan.c | \
+awk '
+/run\(void\)/ {
+  cmd = "cat '$STEST'/scripts/test/basic/spin/init_state.cpp"
+  print "" | cmd
+  close(cmd)
+}
+/memset\(\(char \*\)\&now, 0, sizeof\(State\)\);/ {
+  print "  init_state(now);"
+  next
+}
+{ print }' > $3

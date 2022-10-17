@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------
+# run_tests
+# Run tests
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+default_target_and_mode
+case $MODE in
+  *)
+    redo-ifchange build/$TARGET/$MODE/run
+    evald build/$TARGET/$MODE/run 1>&2
+    ;;
+esac

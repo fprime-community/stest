@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# selected_tests
+# Compute selected tests
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+expand_selected_txt() {
+  for name in `cat selected.txt`
+  do
+    if echo $name | grep -q '\.'
+    then
+      echo $name
+    elif ! test -d $name
+    then
+      echo "$name is not a module name" 1>&2
+      exit 1
+    else
+      find $name -mindepth 1 -name '*.cpp' | \
+        sed -e 's;^\./;;' -e 's;/;.;g' -e 's/.cpp$//'
+    fi
+  done
+}
+
+if test -f selected.txt
+then
+  redo-ifchange selected.txt
+  expand_selected_txt
+else
+  redo-ifcreate selected.txt
+  $SCRIPTS'/test/basic/available'
+fi

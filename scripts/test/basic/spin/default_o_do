@@ -1,0 +1,40 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# default_o_do
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+if test -z "$SPIN_VECTORSZ"
+then
+  export SPIN_VECTORSZ=1048576
+fi
+
+case $TARGET in
+  Darwin)
+    export LOCAL_CPP_FLAGS="
+    -Wno-dynamic-class-memaccess
+    -Wno-pointer-bool-conversion
+    -Wno-sign-compare
+    -Wno-unused-label
+    -Wno-unused-variable
+    -Wno-writable-strings
+    -DNO_FAST_C
+    -DVECTORSZ="$SPIN_VECTORSZ"
+    "
+    ;;
+  Linux)
+    export LOCAL_CPP_FLAGS="
+    -Wno-address
+    -Wno-maybe-uninitialized
+    -Wno-sign-compare
+    -Wno-unused-label
+    -Wno-unused-variable
+    -Wno-write-strings
+    -DNO_FAST_C
+    -DVECTORSZ="$SPIN_VECTORSZ"
+    "
+    ;;
+esac
+default_o_do "$@"

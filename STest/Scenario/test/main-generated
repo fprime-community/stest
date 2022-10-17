@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# ---------------------------------------------------------------------- 
+# main-generated
+# ---------------------------------------------------------------------- 
+# Copy out the generated main file so that we can check it
+# into the repo. The generated file main.cpp is not available
+# when browsing GitHub
+# ---------------------------------------------------------------------- 
+
+cp main.cpp main-generated.cpp

@@ -1,0 +1,6 @@
+Pick/Pick.cpp
+Pick/Pick_spin.cpp
+Random/Random.cpp
+Random/bsd_random.c
+iostream/ostream.cpp
+spin/assert.cpp

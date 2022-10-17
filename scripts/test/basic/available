@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+# ---------------------------------------------------------------------- 
+# available
+# Print available tests
+# ---------------------------------------------------------------------- 
+
+cpp_files=`find . -mindepth 2 -maxdepth 2 -name '*.cpp'`
+for file in $cpp_files
+do
+  test_name=`basename $file .cpp`
+  dir=`dirname $file`
+  module_name=`basename $dir`
+  echo $module_name.$test_name
+done

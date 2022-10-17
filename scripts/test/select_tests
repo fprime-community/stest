@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# select_tests
+# Select tests to run
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+if ! test $# -eq 1
+then
+  echoerr 'usage: select_tests (basic|scenario)'
+  exit 1
+fi
+
+mode=$1
+
+default_target_and_mode
+case $MODE in
+  *)
+    $SCRIPTS'/test/run_tests'
+    ;;
+esac

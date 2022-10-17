@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# exported_hpp_do
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+name=`basename $DIR`
+capital_name=`echo $name | tr a-z A-Z`
+
+echo '`'$SCRIPTS'/banner '$1' "AUTO-GENERATED: DO NOT EDIT" "Symbols exported by module '$name'"
+
+#ifndef STEST_'$capital_name'_EXPORTED_HPP
+#define STEST_'$capital_name'_EXPORTED_HPP
+
+`'$SCRIPTS'/exported_headers
+
+#endif' | awk -f $SCRIPTS/expand.awk | $SCRIPTS/backslash

@@ -1,0 +1,14 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# exported_headers
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+dir=`echo $DIR | sed 's;'$STEST'/;;'`
+for file in `find . -maxdepth 1 -name '*.hpp' | egrep -v '(imported|exported).hpp'`
+do
+  base=`basename $file`
+  echo '#include "'$dir'/'$base'"'
+done | sort

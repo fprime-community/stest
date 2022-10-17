@@ -1,0 +1,27 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# main.cpp.do
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+parent=`dirname $DIR`
+module_name=`basename $parent`
+path=`echo $DIR | sed 's;^'$STEST'/;;'`
+echo '`'$SCRIPTS'/banner main.cpp "AUTO-GENERATED: DO NOT EDIT" "Main file for '$module_name' module tests"
+
+`if test -f local.hpp; then echo "#include \"local.hpp\""; fi
+#include "STest/Random/Random.hpp"
+#include "'$path'/imported.hpp"
+
+namespace STest {
+ `'$SCRIPTS'/test/basic/emit_tests
+
+}
+
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  STest::Random::seed();
+  return RUN_ALL_TESTS();
+}' | awk -f $SCRIPTS/expand.awk | $SCRIPTS/backslash

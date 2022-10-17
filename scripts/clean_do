@@ -1,0 +1,16 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# clean_do
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+subdir_targets redo clean
+for file in `find . -maxdepth 1  -name '*.do'`
+do
+  base=`basename $file .do`
+  rm -rf $base
+done
+rm -rf autocode build depend selected.txt seed seed-history output.txt
+rm_tmp

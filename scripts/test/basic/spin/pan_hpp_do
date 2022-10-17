@@ -1,0 +1,17 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# pan_hpp_do
+# ----------------------------------------------------------------------
+
+redo-ifchange 'test.pml'
+spin -a 'test.pml' 2>&1 | grep -v 'has side-effects' > pan.hpp.txt 2>&1 || true
+if test -n "`cat pan.hpp.txt`"
+then
+  cat pan.hpp.txt 1>&2
+  exit 1
+fi
+sed -e 's/this;/_this;/g' \
+  -e 's/this *=/_this =/g' \
+  -e 's/this)/_this)/g' \
+  -e 's/o__this/o_this/g' < pan.h > $3

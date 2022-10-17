@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# emit_tests
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+selected=`$SCRIPTS'/test/basic/selected_tests'`
+
+for name in $selected
+do
+  module_name=`echo $name | cut -d '.' -f 1`
+  test_name=`echo $name | cut -d '.' -f 2`
+  file=$module_name/$test_name.cpp
+  if ! test -f $file
+  then
+    echo "$name is not a valid test name" 1>&2
+    exit 1
+  fi
+  redo-ifchange $file
+  echo '
+TEST('$module_name', '$test_name') {'
+cat $file | sed 's/^/  /'
+echo '}'
+done

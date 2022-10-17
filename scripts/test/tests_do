@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------
+# tests_do
+# Run tests
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+# Check whether to skip a test
+tests_skip()
+{
+  if echo $1 | grep -q '/spin/' && test -z "`which spin`"
+  then
+    return 0
+  elif test -f $1/skip.txt
+  then
+    for name in `cat $1/skip.txt`
+    do
+      if test $name = All || test `uname` = $name
+      then
+        return 0
+      fi
+    done
+  fi
+  return 1
+}
+
+# Check whether to run a test
+tests_run()
+{
+  if tests_skip $1
+  then
+    echo '[ skipping '$1' ]'
+    return 1
+  else
+    return 0
+  fi
+}
+
+result=0
+
+for file in `find . -name 'test.do' | grep -v 'scripts'`
+do
+  dir=`dirname $file`
+  if tests_run $dir
+  then
+    name=`echo $dir | cut -c 1-55`
+    printf '%-60s' $name
+    if ! redo $dir/test 1>&2 2>tmp.txt
+    then
+      echo_red FAILED
+      result=`expr $result + 1`
+    elif grep -q FAILED < tmp.txt
+    then
+      echo_red FAILED
+      result=`expr $result + 1`
+    else
+      echo_green PASSED
+    fi
+  fi
+done 1>&2
+
+rm -f tmp.txt
+exit $result

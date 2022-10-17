@@ -1,0 +1,61 @@
+#!/bin/sh -e
+
+# ----------------------------------------------------------------------
+# autocode_do
+# ----------------------------------------------------------------------
+
+. ./defs.sh
+
+autocode_collect_files()
+{
+
+  for suffix in hpp cpp
+  do
+    for file in `find . -maxdepth 1 -name "*.$suffix.do"`
+    do
+      base=`basename $file .do`
+      if ! test $base = 'default.'$suffix
+      then
+        echo $base
+      fi
+    done
+  done
+
+}
+
+autocode_imported_hpp()
+{
+  redo-ifchange imported.hpp
+  imported_modules=`grep '^#include "' < imported.hpp | sed -e 's;.*"\(.*\)/[^/]*".*;'$STEST'/\1;' -e 's;.*"[^/]*";'$STEST';'`
+  for module in $imported_modules
+  do
+    if test -f $module'/autocode.do'
+    then
+      echo $module/autocode
+    fi
+  done | xargs redo-ifchange
+}
+
+autocode_do()
+{
+  if test -f imported.hpp
+  then
+    autocode_imported_hpp
+  else
+    redo-ifcreate imported.hpp
+  fi
+
+  if test -f autocode-files.txt
+  then
+    redo-ifchange autocode-files.txt
+    files=`cat autocode-files.txt`
+  else
+    redo-ifcreate autocode-files.txt
+    files=`autocode_collect_files`
+  fi
+  redo-ifchange $files
+  for file in $files
+  do
+    echo $file
+  done
+}
