@@ -10,6 +10,7 @@
 // ======================================================================
 
 #include <cassert>
+#include <cinttypes>
 #include <ctime>
 
 #include "STest/Random/Random.hpp"
@@ -37,7 +38,7 @@ namespace STest {
         bool result = false;
         FILE *fp = fopen(fileName, "r");
         if (fp != nullptr) {
-          result = (fscanf(fp, "%u", &value) == 1);
+          result = (fscanf(fp, "%" PRIu32, &value) == 1);
           (void) fclose(fp);
         }
         return result;
@@ -56,7 +57,7 @@ namespace STest {
         if (fp != nullptr) {
           int status = fprintf(
               fp,
-              "%u\n",
+              "%" PRIu32 "\n",
               seedValue
           );
           result = (status > 0);
@@ -72,11 +73,11 @@ namespace STest {
       const bool seedValueOK =
         SeedValue::getFromFile("seed", seedValue);
       if (seedValueOK) {
-        (void) printf("[STest::Random] Read seed %u from file\n", seedValue);
+        (void) printf("[STest::Random] Read seed %" PRIu32 " from file\n", seedValue);
       }
       else {
         seedValue = SeedValue::getFromTime();
-        (void) printf("[STest::Random] Generated seed %u from system time\n", seedValue);
+        (void) printf("[STest::Random] Generated seed %" PRIu32 " from system time\n", seedValue);
       }
       (void) SeedValue::appendToFile("seed-history", seedValue);
       SeedValue::set(seedValue);
