@@ -2,11 +2,6 @@
 // \title  main.cpp
 // \author AUTO-GENERATED: DO NOT EDIT
 // \brief  Main file for Scenario module tests
-//
-// \copyright
-// Copyright (C) 2022 California Institute of Technology.
-// ALL RIGHTS RESERVED.  United States Government Sponsorship
-// acknowledged.
 // ======================================================================
 
 #include "local.hpp"
