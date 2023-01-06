@@ -5,10 +5,6 @@
 # Build system configuration
 # ----------------------------------------------------------------------
 
-# ---------------------------------------------------------------------- 
-# Required configurations
-# ---------------------------------------------------------------------- 
-
 # The path to the GoogleTest include directory
 export GTEST_INCLUDE_PATH=/path/to/gtest/include
 # The path to the GoogleTest lib directory
