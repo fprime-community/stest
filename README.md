@@ -2,9 +2,9 @@
 
 STest is a C++ framework for **scenario-based testing**.
 To carry out scenario-based testing, you write **rules** that
-express the behavior of a system under test.
+express aspects of the behavior of a system under test.
 Then you compose the rules into **scenarios**, either manually or
-automatically. A scenario is a specific behavior that you want to test.
+automatically. A scenario is a behavior that you want to test.
 
 Compared to traditional methods of writing tests, scenario-based
 testing is more modular and structured, because you can combine the
@@ -79,7 +79,7 @@ directories.
 
 ### Writing Tests in C++
 
-When writing tests in C++, you write rules in C++.
+When writing tests in C++, you start by writing rules in C++.
 Each rule is derived from the abstract class `Rule` provided by STest.
 Then you pass instances of rules into scenario instances.
 Each scenario instantiates one of the `Scenario` classes provided
