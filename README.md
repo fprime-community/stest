@@ -79,7 +79,7 @@ directories.
 
 ### Writing Tests in C++
 
-When writing tests in C++, you start by writing rules in C++.
+When writing tests in C++, you start by writing rules.
 Each rule is derived from the abstract class `Rule` provided by STest.
 Then you pass instances of rules into scenario instances.
 Each scenario instantiates one of the `Scenario` classes provided
