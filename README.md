@@ -11,7 +11,7 @@ testing is more modular and structured, because you can combine the
 same rules into different scenarios.
 You can also generate scenarios automatically from rules.
 Auto-generated scenarios typically provide much more state and
-path coverage than it is possible to achieve with purely hand-written tests.
+path coverage than it is possible to achieve with purely handwritten tests.
 
 Section 4.2 of [this paper](https://digitalcommons.usu.edu/smallsat/2018/all2018/328/)
 describes the idea of scenario-based testing and provides some
