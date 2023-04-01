@@ -21,9 +21,6 @@ cpp_flags_Darwin()
 -Werror
 -Wextra
 -Wpedantic
--Wno-deprecated-declarations
--Wno-keyword-macro
--Wno-unused-but-set-parameter
 -Wno-unused-parameter
 $LOCAL_CPP_FLAGS
 "

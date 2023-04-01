@@ -14,9 +14,12 @@ fi
 case $TARGET in
   Darwin)
     export LOCAL_CPP_FLAGS="
+    -Wno-deprecated-declarations
     -Wno-dynamic-class-memaccess
+    -Wno-keyword-macro
     -Wno-pointer-bool-conversion
     -Wno-sign-compare
+    -Wno-unused-but-set-parameter
     -Wno-unused-label
     -Wno-unused-variable
     -Wno-writable-strings
