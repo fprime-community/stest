@@ -18,11 +18,13 @@ cpp_flags_Darwin()
 -g3
 -Os
 -Wall
+-Werror
 -Wextra
 -Wpedantic
--Werror
--Wno-unused-parameter
+-Wno-deprecated-declarations
 -Wno-keyword-macro
+-Wno-unused-but-set-parameter
+-Wno-unused-parameter
 $LOCAL_CPP_FLAGS
 "
 }
