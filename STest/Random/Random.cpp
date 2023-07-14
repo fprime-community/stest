@@ -88,9 +88,7 @@ namespace STest {
         const U32 length
     ) {
       assert(length > 0);
-      const F64 randFloat = inUnitInterval() * length;
-      const U32 offset = static_cast<U32>(randFloat);
-      return start + offset;
+      return lowerUpper(start, start + length - 1);
     }
 
     U32 lowerUpper(
@@ -101,7 +99,9 @@ namespace STest {
       const F64 length = static_cast<F64>(upper) - lower + 1;
       const F64 randFloat = inUnitInterval() * length;
       const U32 offset = static_cast<U32>(randFloat);
-      return lower + offset;
+      const U32 result = lower + offset;
+      // Handle boundary case where inUnitInterval returns 1.0
+      return (result <= upper) ? result : result - 1;
     }
 
     double inUnitInterval() {
