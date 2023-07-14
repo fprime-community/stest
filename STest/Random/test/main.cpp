@@ -1,4 +1,4 @@
-// ====================================================================== 
+// ======================================================================
 // \title  main.cpp
 // \author Rob Bocchino
 // \brief  Main file for Random module tests
@@ -9,7 +9,7 @@
 #define NUM_ITERATIONS 1000000
 
 namespace STest {
- 
+
  TEST(inUnitInterval, OK) {
    for (U32 i = 0; i < NUM_ITERATIONS; ++i) {
      const double d = Random::inUnitInterval();
