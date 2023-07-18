@@ -1,4 +1,4 @@
-// ====================================================================== 
+// ======================================================================
 // \title  Pick.hpp
 // \author bocchino
 // \brief  Pick interface
@@ -11,10 +11,6 @@
 
 #ifndef STEST_PICK_HPP
 #define STEST_PICK_HPP
-
-#include <assert.h>
-#include <cstddef>
-#include <limits.h>
 
 #include "STest/types/basic_types.h"
 #ifdef STEST_MODE_spin
