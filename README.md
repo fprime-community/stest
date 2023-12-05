@@ -148,3 +148,62 @@ You can link your tests against these libraries as follows:
    STest/build/[platform name]/spin/lib.a
    ```
 
+### Managing Random Seeds
+
+The standard configuration of STest uses a pseudorandom number
+generator to pick values in tests.
+In this configuration, there are several points to be aware
+of:
+
+1. You should always seed the random number generator by
+   calling `STest::Random::seed()` in the `main` function
+   of your tests. See the `main` function of
+   `STest/Scenario/test/main-generated.cpp` for an example.
+   If you don't do this, then the system will use the
+   same default seed every time, and you won't get the
+   benefit of choosing different random numbers on different test
+   runs.
+
+1. By default, `stest` uses the system time to choose a random
+   seed value. This is usually what you want. To specify a particular
+   seed value, store the value as a decimal integer in the file `seed`,
+   located in the same directory as the test executable program.
+   When `stest` runs, if the file `seed` is present, it uses
+   the value stored in that file instead of picking a random seed.
+
+1. `stest` writes a history of the seeds it has chosen to
+   the file `seed-history`, located in the same directory as
+   the test executable program. To replay the last run of
+   `stest`, you can use the following formula:
+   ```
+   tail -n 1 seed-history > seed
+   ```
+   That will store the last seed chosen in the file `seed`.
+   The next time you run your tests, `stest` will use
+   that seed value. It will keep using that seed value until
+   you modify or delete the file `seed`.
+
+1. As part of the test output, `stest` reports (a) the value
+   that it used for the random seed and (b) how that value
+   was generated (read from the `seed` file, or generated
+   from the system time). This output is useful for debugging.
+   For example, if a continuous integration run fails,
+   you can look at the test output to see the seed value
+   that caused the failure. Then you can use the `seed`
+   file to rerun the tests with that seed value.
+
+### Showing Rule Applications
+
+By default, `stest` does not display the rules that it
+picks when running a random scenario. To show the rules,
+put a file `show-rules` in the same directory as the test
+executable. (This file may be empty.) When this file is present,
+`stest` displays the rule applications as part of its
+test output. This behavior is useful for debugging. For example, if
+a random scenario fails, then you can (a) capture and replay
+the random seed as described in the previous section, (b)
+turn on `show-rules`, and (c) rerun the tests. Then you
+will see the sequence of rule applications leading
+up to the failure.
+
+To restore the default behavior, delete the file `show-rules`.
