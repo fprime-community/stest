@@ -11,7 +11,7 @@ cpp_flags_Darwin()
   echo "
 -DSTEST_TARGET_"$TARGET"
 -DSTEST_MODE_"$MODE"
---std=c++11
+--std=c++17
 -I$STEST
 -I$GTEST_INCLUDE_PATH
 -I$GTEST_INCLUDE_PATH/gtest/include

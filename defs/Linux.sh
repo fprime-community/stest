@@ -27,7 +27,7 @@ cpp_flags_Linux()
 {
   c_and_cpp_flags_Linux
   echo "
---std=c++11
+--std=c++17
 $LOCAL_CPP_FLAGS"
 }
 
